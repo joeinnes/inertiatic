@@ -1,0 +1,13 @@
+<template name="toDoList">
+    <div class="col todo-list-col">
+        <div class="day-header">
+            <h1>Monday</h1>
+            <small>Date</small>
+        </div>
+        <ul class="todo-list" id="Monday">
+            {{#each todos}}
+                {{> toDoItem}}
+            {{#each}}
+        </ul>
+    </div>
+</template>
