@@ -9,6 +9,7 @@ Template.toDoWeek.helpers({
         }
 
         var days = Helpers.getNextFive(startDate);
+        Session.set('daysVisible', days);
         return days;
     },
 });

@@ -4,6 +4,7 @@ Template.toDoItem.helpers({
         return 1;
     },
     'dateStr': function() {
+        console.log(this);
         return Helpers.parseADate(this.date);
     }
 });
@@ -33,6 +34,12 @@ Template.toDoItem.events({
             var date = new Date(editedToDo[0]);
             var prio =  editedToDo[1];
             console.log('I will insert the following... {date: ' + date + ', prio: ' + prio + ', todo: ' + toDo + '}' );
+            ToDos.insert({
+                todo: toDo,
+                prio: prio,
+                date: date,
+                createdBy: 'Joe'
+            });
         }
     }
 });
