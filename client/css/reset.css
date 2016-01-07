@@ -45,11 +45,8 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-<<<<<<< HEAD
-=======
 }
 
 h1 {
     font-size: 2rem;
->>>>>>> origin/master
 }

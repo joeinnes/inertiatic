@@ -59,6 +59,8 @@ h1 {
         .nav-bar a {
             text-decoration: none;
             color: #fff;
+            padding-left: 50px;
+            padding-right: 50px;
         }
         
         .projects {
