@@ -4,7 +4,7 @@
             <h1>{{dayName}}</h1>
             <small>{{dateFormat}}</small>
         </div>
-        <ul class="todo-list" id="Monday">
+        <ul class="todo-list" id="{{dateFormat}}">
             {{#each todos}}
                 {{> toDoItem}}
             {{/each}}

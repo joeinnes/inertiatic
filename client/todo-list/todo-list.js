@@ -1,15 +1,9 @@
 Template.toDoList.helpers({
     todos: function () {
         var query = new Date(this.toString())
-        
-        // console.log(query);
         var results = ToDos.find({ date: query }).fetch();
-        
-        // console.log(results);
-        /* Map out results to todos */
         var toDoList = [];
         var todos = results.map(function (result) {
-            // todos[parseInt(result.prio)] = result;
             toDoList[result.prio] = result;
         });
         
@@ -19,8 +13,6 @@ Template.toDoList.helpers({
                 toDoList[i] = {date: thisDate, prio: i, todo: ""};
             }
         }
-        
-        console.log(toDoList)
         
         return toDoList;
     },

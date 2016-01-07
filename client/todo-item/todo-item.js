@@ -1,23 +1,43 @@
 Template.toDoItem.helpers({
-    'test': function() {
-        // console.log(this);
-        return 1;
-    },
     'dateStr': function() {
-        console.log(this);
         return Helpers.parseADate(this.date);
+    },
+    'done': function() {
+        var docId = this._id;
+        var doc = ToDos.findOne(docId);
+        if (doc) {
+            if (!!doc.done) {
+                return true;
+            }
+        }
+        return false;
     }
 });
 
 Template.toDoItem.events({
     'dblclick .todo-item': function (e) {
-        var docId = e.target.id;
+        console.log('Hey!!!');
+        var docId = e.target.id.split("_")[2];
         var doc = ToDos.findOne(docId);
         if (doc) {
             if (!!doc.done) {
-                console.log('Update this doc with \'done: false\'');
+                ToDos.update({
+                    _id: docId
+                },
+                {
+                   $set: {
+                       done: false
+                   }
+                });
             } else {
-                console.log('Update this doc with \'done: true\'');
+                ToDos.update({
+                    _id: docId
+                },
+                {
+                    $set: {
+                        done: true
+                    }
+                });
             }
         }
     },
@@ -33,13 +53,16 @@ Template.toDoItem.events({
             var editedToDo = e.target.id.split('_');
             var date = new Date(editedToDo[0]);
             var prio =  editedToDo[1];
-            console.log('I will insert the following... {date: ' + date + ', prio: ' + prio + ', todo: ' + toDo + '}' );
-            ToDos.insert({
-                todo: toDo,
-                prio: prio,
-                date: date,
-                createdBy: 'Joe'
-            });
+            var docId = editedToDo[2];
+            if (!ToDos.findOne(docId)) {
+                ToDos.insert({
+                    todo: toDo,
+                    prio: prio,
+                    date: date,
+                    createdBy: 'Joe',
+                    done: false
+                });
+            }
         }
     }
 });

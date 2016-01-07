@@ -45,7 +45,6 @@ Helpers = {
         }
     },
     'getNextFive': function (date) {
-        console.log(date);
         var start = new Date(date);
         var allDates = [Helpers.parseADate(start)];
         for (var i = 0; i < 4; i++) {
