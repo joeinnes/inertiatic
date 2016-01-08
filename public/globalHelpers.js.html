@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: globalHelpers.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: globalHelpers.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @fileOverview Helper functions
  * @author Joe Innes
  */
@@ -14,25 +42,15 @@ Helper = {
      * @returns {String} A string representing the date passed to it in format 'YYYY-MM-DD' 
      */
     'parseADate': function (date) {
-        
-        /* Validate the parameter */
-        if ( !(Object.prototype.toString.call(date) === "[object Date]")) {
-            throw Helper.Error('Unacceptable argument', 'You passed something into the parseADate function, but it wasn\'t a date.');
-        } else {
-            if ( isNaN( date.getTime() ) ) {
-                throw Helper.Error('Unacceptable argument', 'You passed a date object into the parseADate function, but it wasn\'t valid');
-            }
-        }
-        
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
         var day = date.getDate();
-        if (("" + month).length < 2) {
+        if (("" + month).length &lt; 2) {
             month = "0" + month;
         } else {
             month = "" + month;
         }
-        if (("" + day).length < 2) {
+        if (("" + day).length &lt; 2) {
             day = "0" + day;
         } else {
             day = "" + day;
@@ -75,30 +93,13 @@ Helper = {
     },
     /**  
      * Takes a date, and returns five days (including this one).
-     * @param {String} date A string in format YYYY-MM-DD 
+     * @param {Date} date A string in format YYYY-MM-DD 
      * @returns {Array} An array of strings in format YYYY-MM-DD 
      */
     'getNextFive': function (date) {
-        
-        /* Validate the parameter */
-        if (typeof date !== 'string') {
-            throw Helper.Error('Unacceptable argument', 'You passed something into the getNextFive function, but it wasn\'t a string.');
-        }
-        
         var start = new Date(date);
-        
-        /* Validate the parameter now it's a date */
-        if ( !(Object.prototype.toString.call(start) === "[object Date]")) {
-            throw Helper.Error('Unacceptable argument', 'You passed something into the getNextFive function, but it wasn\'t a date string in the format YYYY-MM-DD.');
-        } else {
-            if ( isNaN( start.getTime() ) ) {
-                throw Helper.Error('Unacceptable argument', 'You passed something weird into the getNextFive function that could be converted into a date, but somehow the date created was not valid');
-            }
-        }
-        
-        start = new Date(start.setDate(start.getDate() - 1)); // Show yesterday in the list too... 
         var allDates = [Helper.parseADate(start)];
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i &lt; 4; i++) {
             allDates.push(Helper.parseADate(new Date(start.setDate(start.getDate() + 1))));
         }
         return allDates;
@@ -107,19 +108,18 @@ Helper = {
      * Converts a date into a string of format 'DD/MM/YYYY'
      * @param {Date} date A date 
      * @returns {String} A string representing the date in format DD/MM/YYYY 
-     * @todo Allow a format string to be passed in
      */
     'dateFormat': function(date) {
         // var format = 'DD/MM/YYYY'; format will be user defined in future.
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
         var day = date.getDate();
-        if (("" + month).length < 2) {
+        if (("" + month).length &lt; 2) {
             month = "0" + month;
         } else {
             month = "" + month;
         }
-        if (("" + day).length < 2) {
+        if (("" + day).length &lt; 2) {
             day = "0" + day;
         } else {
             day = "" + day;
@@ -130,12 +130,31 @@ Helper = {
      * Homegrown error handler
      * @param {String} message A message to be displayed
      * @param {String} detail Detailed information about the error  
-     * @returns {String} A string containing the error message and the details
-     * @todo Add some kind of user alerting feature to this
      */
-    'Error': function (message, detail) {
-        this.message = message;
-        this.detail = detail;
-        return message + '\n' + detail;
+    'Error': function(message, detail) {
+        console.error(message);
+        console.log(detail);
     }
-};
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Helper.html">Helper</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 08 2016 15:54:40 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
