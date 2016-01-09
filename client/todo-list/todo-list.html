@@ -1,7 +1,7 @@
 <template name="toDoList">
     <div class="col todo-list-col">
         <div class="day-header">
-            <h1>{{dayName}}</h1>
+            <h1 class="{{#if beforeToday}}before-today{{/if}}">{{dayName}}</h1>
             <small>{{dateFormat}}</small>
         </div>
         <ul class="todo-list" id="{{dateFormat}}">

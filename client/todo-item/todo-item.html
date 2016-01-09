@@ -1,5 +1,5 @@
 <template name="toDoItem">
     <li>
-        <span contenteditable="true" class="todo-item {{#if done}}done{{/if}}" id="{{dateStr}}_{{prio}}_{{_id}}">{{todo}}</span><span class="item-icons pull-right"></span>
+        <div class="to-do-item-container"><span contenteditable="true" class="todo-item {{#if done}}done{{/if}}" id="{{dateStr}}_{{prio}}_{{_id}}">{{todo}}</span><span class="item-icons pull-right"><span class="delete">X</span></span></div>
     </li>
 </template>

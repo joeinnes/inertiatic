@@ -13,6 +13,7 @@ h1 {
             width: 100%;
             border-bottom: 1px dotted #000;
             display: inline-block;
+            font-family: "Source Sans Pro", sans-serif;
         }
         
         [contenteditable] {
@@ -45,6 +46,11 @@ h1 {
         
         .day-header h1 {
             margin-bottom: 0.5em;
+            text-transform: uppercase;
+        }
+        
+        .day-header h1::first-letter {
+            font-size: 1.2em;
         }
         
         .nav-bar {
@@ -69,16 +75,24 @@ h1 {
             margin-bottom: 1em;
         }
         
+        .to-do-item-container {
+            position: relative;
+        }
+        
         .item-icons {
             position: absolute;
-            right: 1em;
-            font-size: 0.8em;
-            letter-spacing: 0.2em;
+            right: 0em;
+            top: 0em;
+            left: auto;
+            bottom: 0em;
         }
+  /*          font-size: 0.8em;
+            letter-spacing: 0.2em;
+        } 
         
         .item-icons i {
             margin-top: 0.5em;
-        }
+        } */
         
         .section {
             padding-left: 50px;
@@ -126,6 +140,10 @@ h1 {
         .done {
             text-decoration: line-through;
             color: #888;
+        }
+        
+        .before-today {
+           color: #888; 
         }
         
         @media all and (max-width: 600px) {

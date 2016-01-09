@@ -31,9 +31,8 @@ Template.toDoItem.events({
      * @listens double click on this item
      */
     'dblclick .todo-item': function (e) {
-        var docId = e.target.id.split("_")[2];
+        var docId = this._id;
         var doc = ToDos.findOne(docId);
-        var editedToDo = e.target.id.split('_');
         var yesterday = (function(){this.setDate(this.getDate()-1); this.setUTCHours(0,0,0,0); return this}).call(new Date);
         if (doc) {
             if (!!doc.done) {
@@ -45,7 +44,7 @@ Template.toDoItem.events({
                        done: false
                    }
                 });
-            } else if (ToDos.findOne(docId).date < yesterday ) {
+            } else if (!(Session.get('daysVisible').indexOf(ToDos.findOne(docId).date) > -1) ) { // If the date on this doc is not currently visible
                 var prio = 0;
                 while (ToDos.find({date: new Date(new Date().setUTCHours(0,0,0,0)), prio: prio}).fetch().length) {
                     prio++;
@@ -93,9 +92,8 @@ Template.toDoItem.events({
         if (e.target.innerHTML !== "" && e.target.innerHTML !== Session.get('editing')) { // Don't do anything if empty or no change
             var creator = "Joe"; // Set the creator's name
             var toDo = e.target.innerHTML; // Get the text
-            var editedToDo = e.target.id.split('_'); // Now for the fun bit... split the ID into its constituent parts
-            var date = new Date(editedToDo[0]);
-            
+            var editedToDo = e.target.id.split('_'); // Now for the fun bit... split the ID into its constituent parts... wait, why am I doing this?
+            var date = this.date;
                     
             /* Validate the parameter */
             if ( !(Object.prototype.toString.call(date) === "[object Date]")) {
@@ -106,13 +104,11 @@ Template.toDoItem.events({
                 }
             }
             
-            var prio =  editedToDo[1];
+            var prio =  this.prio;
             
             prio = parseInt(prio, 10);
             
-            console.log(prio); 
-            
-            var docId = editedToDo[2];
+            var docId = this._id;
             
             // Don't waste time checking if there's no docId embedded in this element
             if (docId !== "") {
@@ -157,5 +153,16 @@ Template.toDoItem.events({
      */
     'focus .todo-item': function (e) {
         Session.set('editing', e.target.innerHTML);
+    },
+    /**
+     * @function
+     * @summary Deletes this item
+     * @listens click on the delete button for this item
+     */
+    'click .delete': function (e) {
+        console.log (this._id);
+        if (this._id) {
+            ToDos.remove(this._id);
+        }
     }
 });

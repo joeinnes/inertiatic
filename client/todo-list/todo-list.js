@@ -29,7 +29,6 @@ Template.toDoList.helpers({
         
         /* TODO: old to dos should fill the list for today */
         if (query.valueOf() == (new Date()).setUTCHours(0,0,0,0).valueOf()) {
-            console.log('This is today');
             var beforeStart = new Date(Session.get('startDate'));
             beforeStart.setDate(beforeStart.getDate() - 1);
 
@@ -64,7 +63,7 @@ Template.toDoList.helpers({
                     toDoList[i] = oldToDos[j];
                     j++;
                 } else {
-                    toDoList[i] = {date: thisDate, prio: i, todo: ""};
+                    toDoList[i] = {prio: i, todo: "", date: thisDate};
                 }
             }
         }
@@ -75,16 +74,31 @@ Template.toDoList.helpers({
                 return 1;
             }
         });
-        toDoList.sort(function(a, b) {
-            if (!a.done && !b.done) {
-                if (a.prio < b.prio) {
-                    return -1;
-                }
-                return 1;
-            }
-            return 0;
-        });
         return toDoList;
+    },
+    /**
+     * @function
+     * @summary Checks if this is before today
+     * @returns {Boolean} A boolean - true means this is before today, false means this is today or later.
+     */
+    'beforeToday' : function() {
+        var displayedDate = new Date(this.toString());
+        
+        /* Validate the parameter to check it's a date */
+        if ( !(Object.prototype.toString.call(displayedDate) === "[object Date]")) {
+            throw Helper.Error('Unacceptable argument', 'Something went wrong and the this reference for today couldn\'t be converted to a date');
+        } else {
+            if ( isNaN( displayedDate.getTime() ) ) {
+                throw Helper.Error('Unacceptable argument', 'The this value for today could be converted into a date, but somehow the date created was not valid');
+            }
+        }
+        
+        var today = new Date().setUTCHours(0,0,0,0).valueOf();
+        
+        if (displayedDate < today) {
+            return true;
+        }
+        return false;
     },
      /**
      * @function
